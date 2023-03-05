@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { RegisterFormComponent } from '@component/register-form/register-form.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterFormComponent }
+  { path: '', component: RegisterFormComponent, title: 'Bach Linh order shop register page' }
 ];
 
 @NgModule({

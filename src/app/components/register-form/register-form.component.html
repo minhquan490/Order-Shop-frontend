@@ -1,1 +1,338 @@
-<p>register-form works!</p>
+<div class="relative w-full register-wrapper">
+  <div class="grid grid-cols-4 gap-3 py-10">
+    <div class="col-start-2 col-end-4 p-8 bg-white rounded-lg">
+      <div class="flex items-center justify-center pb-2">
+        <span class="text-2xl font-bold text-indigo-600">Sign Up</span>
+      </div>
+      <form
+        class="grid grid-cols-2"
+        [formGroup]="registerForm"
+        autocomplete="off"
+        (submit)="handleSubmit()"
+      >
+        <div class="flex items-center justify-center">
+          <span class="uppercase">General information</span>
+        </div>
+        <div class="flex items-center justify-center">
+          <span class="uppercase">Login information</span>
+        </div>
+        <div class="col-start-1 col-end-2 pr-2 border-right">
+          <div class="grid grid-cols-1 gap-8 pt-2">
+            <div class="relative grid grid-cols-1">
+              <label for="firstName" class="text-slate-700">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('firstName')?.invalid &&
+                  (registerForm.get('firstName')?.dirty ||
+                    registerForm.get('firstName')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                placeholder="Type your first name"
+                formControlName="firstName"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('firstName')?.invalid &&
+                  (registerForm.get('firstName')?.dirty ||
+                    registerForm.get('firstName')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('firstName')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("firstName-require") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('firstName')?.errors?.['minlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("firstName-minlength") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('firstName')?.errors?.['maxlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("firstName-maxlength") }}
+                </span>
+              </div>
+            </div>
+            <div class="relative grid grid-cols-1">
+              <label class="text-slate-700" for="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('lastName')?.invalid &&
+                  (registerForm.get('lastName')?.dirty ||
+                    registerForm.get('lastName')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                placeholder="Type your last name"
+                formControlName="lastName"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('lastName')?.invalid &&
+                  (registerForm.get('lastName')?.dirty ||
+                    registerForm.get('lastName')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('lastName')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("lastName-require") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('lastName')?.errors?.['minlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("lastName-minlength") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('lastName')?.errors?.['maxlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("lastName-maxlength") }}
+                </span>
+              </div>
+            </div>
+            <div class="relative grid grid-cols-1">
+              <label class="text-slate-700" for="phoneNumber">
+                Phone number
+              </label>
+              <input
+                type="text"
+                id="phoneNumber"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('phoneNumber')?.invalid &&
+                  (registerForm.get('phoneNumber')?.dirty ||
+                    registerForm.get('phoneNumber')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                placeholder="Type your phone"
+                formControlName="phoneNumber"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('phoneNumber')?.invalid &&
+                  (registerForm.get('phoneNumber')?.dirty ||
+                    registerForm.get('phoneNumber')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('phoneNumber')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("phoneNumber-require") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('phoneNumber')?.errors?.['pattern']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("phoneNumber-invalid") }}
+                </span>
+              </div>
+            </div>
+            <div class="relative grid grid-cols-1">
+              <label class="text-slate-700" for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('email')?.invalid &&
+                  (registerForm.get('email')?.dirty ||
+                    registerForm.get('email')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                placeholder="Type your email"
+                formControlName="email"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('email')?.invalid &&
+                  (registerForm.get('email')?.dirty ||
+                    registerForm.get('email')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('email')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("email-require") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('email')?.errors?.['email']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("email-invalid") }}
+                </span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1">
+              <span class="text-slate-700">Gender</span>
+              <div class="flex justify-between w-3/5">
+                <div class="flex items-center justify-center">
+                  <label class="pr-2" for="male">Male</label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    value="male"
+                    formControlName="gender"
+                  />
+                </div>
+                <div class="flex items-center justify-center">
+                  <label class="pr-2" for="female">Female</label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value="female"
+                    formControlName="gender"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-start-2 col-end-3 pl-2">
+          <div class="grid grid-cols-1 gap-8 pt-2">
+            <div class="relative grid grid-cols-1">
+              <label for="username" class="text-slate-700">Username</label>
+              <input
+                type="text"
+                id="username"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('username')?.invalid &&
+                  (registerForm.get('username')?.dirty ||
+                    registerForm.get('username')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                placeholder="Type your username"
+                formControlName="username"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('username')?.invalid &&
+                  (registerForm.get('username')?.dirty ||
+                    registerForm.get('username')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('username')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("username-require") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('username')?.errors?.['minlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("username-minlength") }}
+                </span>
+                <span
+                  *ngIf="registerForm.get('username')?.errors?.['maxlength']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("username-maxlength") }}
+                </span>
+              </div>
+            </div>
+            <div class="relative grid grid-cols-1">
+              <label for="password" class="text-slate-700">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('password')?.invalid &&
+                  (registerForm.get('password')?.dirty ||
+                    registerForm.get('password')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                formControlName="password"
+                placeholder="Type your password"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('password')?.invalid &&
+                  (registerForm.get('password')?.dirty ||
+                    registerForm.get('password')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('password')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("password-require") }}
+                </span>
+              </div>
+            </div>
+            <div class="relative grid grid-cols-1">
+              <label for="re-password" class="text-slate-700">
+                Repeat your password
+              </label>
+              <input
+                type="password"
+                id="re-password"
+                class="p-2 border rounded outline-none bg-slate-100 {{
+                  registerForm.get('repeatPassword')?.invalid &&
+                  (registerForm.get('repeatPassword')?.dirty ||
+                    registerForm.get('repeatPassword')?.touched)
+                    ? 'border-red-700'
+                    : ''
+                }}"
+                formControlName="repeatPassword"
+                placeholder="Repeat your password"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('repeatPassword')?.invalid &&
+                  (registerForm.get('repeatPassword')?.dirty ||
+                    registerForm.get('repeatPassword')?.touched)
+                "
+                class="absolute -bottom-5"
+              >
+                <span
+                  *ngIf="registerForm.get('repeatPassword')?.errors?.['required']"
+                  class="text-xs text-red-600"
+                >
+                  {{ errorMsg.get("repeatPassword") }}
+                </span>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <span class="pr-2 text-blue-600">I agree with user terms</span>
+              <input type="checkbox" formControlName="termAgree" />
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="w-full p-2 text-white bg-green-600 border rounded-3xl hover:opacity-80"
+                [disabled]="registerForm.invalid"
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div>//TODO add modal register result</div>
+</div>

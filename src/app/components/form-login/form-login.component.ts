@@ -13,8 +13,6 @@ const message = () => {
   errorMsgMap.set("username-minlength", environment.usernameErrMsgMinLength)
   errorMsgMap.set("username-maxlength", environment.usernameErrMsgMaxLength);
   errorMsgMap.set("password-require", environment.passwordErrMsgRequire);
-  errorMsgMap.set("password-minlength", environment.passwordErrMsgMinLength)
-  errorMsgMap.set("password-maxlength", environment.passwordErrMsgMaxLength);
   return errorMsgMap;
 }
 

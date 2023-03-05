@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormLoginComponent } from '@component/form-login/form-login.component';
 
 const routes: Routes = [
-  { path: '', component: FormLoginComponent, title: 'Login' }
+  { path: '', component: FormLoginComponent, title: 'Bach Linh order shop login page' }
 ]
 
 @NgModule({

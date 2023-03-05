@@ -65,7 +65,6 @@
             [(ngModel)]="model.password"
             required
             minlength="4"
-            maxlength="32"
             #passwordValidate="ngModel"
             name="password"
             placeholder="Type your password"
@@ -82,18 +81,6 @@
             class="text-xs text-red-700"
           >
             {{ errorMsg.get("password-require") }}
-          </span>
-          <span
-            *ngIf="passwordValidate.errors?.['minlength']"
-            class="text-xs text-red-700"
-          >
-            {{ errorMsg.get("password-minlength") }}
-          </span>
-          <span
-            *ngIf="passwordValidate.errors?.['maxlength']"
-            class="text-xs text-red-700"
-          >
-            {{ errorMsg.get("password-maxlength") }}
           </span>
         </div>
       </div>
@@ -123,7 +110,7 @@
       </div>
       <div class="flex flex-col items-center justify-center pt-6">
         <span class="text-blue-600">Or</span>
-        <a class="text-xs" [routerLink]="['/']"> SIGN UP </a>
+        <a class="text-xs" [routerLink]="['/register']"> SIGN UP </a>
       </div>
     </div>
     <div></div>
