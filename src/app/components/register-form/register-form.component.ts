@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { environment } from '@environments/environment';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from '@service/http.service';
 import { NavigateService } from '@service/navigate.service';
 
@@ -47,6 +48,12 @@ export class RegisterFormComponent {
   registerSuccessMsg = '';
   isRegisterSuccess = false;
 
+  xmarkIcon = faXmark;
+
+  toggleModal() {
+    this.isRegisterErr = false;
+  }
+
   registerForm = this.formBuilder.group({
     firstName: ['', Validators.compose(
       [Validators.required, Validators.minLength(4), Validators.maxLength(36)]
@@ -66,20 +73,27 @@ export class RegisterFormComponent {
     )],
     password: ['', Validators.required],
     repeatPassword: ['', Validators.required],
-    termAgree: [false, Validators.required]
+    termAgree: [false, Validators.requiredTrue]
   });
 
 
   handleSubmit() {
+    this.registerErr = [];
     if (this.registerForm.invalid) {
       return;
     }
     const resp = this.client.post<{ message: string }>(this.registerUrl, this.registerForm.value);
+    if (typeof resp === 'undefined') {
+      this.isRegisterErr = true;
+      this.registerErr.push("Checking your network before try again");
+      return;
+    }
+    this.isRegisterErr = resp.isError;
     if (resp.isError) {
-      this.isRegisterErr = resp.isError;
       resp.error.messages.forEach(message => this.registerErr.push(message));
     } else {
-      this.isRegisterSuccess = true;
+      console.log(resp.isError)
+      console.log(resp.status);
       this.registerSuccessMsg = "Register success you will be navigate to login page in 10s";
       setTimeout(() => this.navigator.navigateTo("/login"), 10000);
     }

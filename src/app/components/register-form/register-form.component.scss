@@ -9,6 +9,60 @@
   border-right-color: rgba(0, 0, 0, 0.5);
 }
 
+.modal-result {
+  top: 2.5rem;
+  right: 3vw;
+  width: 20%;
+  border-radius: 8px;
+  border-color: #ffeeba;
+  background-color: #fff3cd;
+  color: #856404;
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: hide-error;
+  transition: 0.3s;
+}
+
+.x-icon {
+  right: 0.7rem;
+}
+
+.has-error {
+  opacity: 1;
+  transform: translateY(0);
+  animation: error;
+}
+
+@keyframes error {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide-error {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+
 span:hover {
   cursor: default;
 }

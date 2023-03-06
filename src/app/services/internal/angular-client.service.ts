@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BackendResponse, HttpParam, HttpService } from '@service/http.service';
-import { Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,26 +33,34 @@ export class AngularClientHttp implements HttpService {
   }
 
   private subscribe<T>(req: Observable<HttpResponse<string>>): BackendResponse<T> {
-    const response: BackendResponse<T> = {
-      isError: false,
-      status: -1,
-      body: null,
-      headers: new HttpHeaders(),
-      error: {
-        messages: []
-      }
-    };
-    req.subscribe(res => {
-      if (typeof res.body === 'string') {
-        response.body = JSON.parse(res.body);
-      }
-      response.status = res.status;
-      response.headers = res.headers;
-      if (res.status >= 400) {
-        response.isError = true;
-        response.error = res.body === null ? [] : JSON.parse(res.body);
-      }
-    });
-    return response;
+    let result: BackendResponse<T> | undefined;
+    const transform = req.pipe(map(res => {
+      return {
+        isError: false,
+        status: res.status,
+        body: typeof res.body === 'string' ? JSON.parse(res.body) : null,
+        headers: res.headers,
+        error: {
+          messages: []
+        }
+      } as BackendResponse<T>;
+    }));
+    firstValueFrom(transform)
+      .then(res => {
+        result = res;
+      })
+      .catch(err => {
+        const responseErr: HttpErrorResponse = err as HttpErrorResponse;
+        result = {
+          isError: true,
+          status: responseErr.status,
+          body: null,
+          headers: responseErr.headers,
+          error: {
+            messages: typeof responseErr.error === 'string' ? JSON.parse(responseErr.error) : [responseErr.statusText]
+          }
+        };
+      });
+    return result as BackendResponse<T>;
   }
 }

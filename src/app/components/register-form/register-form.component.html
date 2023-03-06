@@ -334,5 +334,18 @@
       </form>
     </div>
   </div>
-  <div>//TODO add modal register result</div>
+  <div
+    class="absolute z-10 p-4 modal-result {{
+      isRegisterErr ? 'has-error' : ''
+    }}"
+  >
+    <fa-icon
+      class="absolute top-0 x-icon hover:cursor-pointer"
+      [icon]="xmarkIcon"
+      (click)="toggleModal()"
+    ></fa-icon>
+    <div *ngFor="let item of registerErr">
+      <span class="text-xs">{{ item }}</span>
+    </div>
+  </div>
 </div>

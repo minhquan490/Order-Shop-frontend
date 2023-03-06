@@ -44,14 +44,19 @@ export class FormLoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.loginErrorMsg = [];
     const resp = this.httpService.post<LoginResp>(this.loginUrl, this.model);
+    if (typeof resp === 'undefined') {
+      this.loginError = true;
+      this.loginErrorMsg.push("Checking your network before try again");
+      return;
+    }
     this.loginError = resp.isError;
     this.loginErrorMsg = resp.error.messages;
     if (!this.loginError) {
       const accessToken = resp.headers.get(environment.accessTokenHeaderName);
       const body = resp.body;
       if (accessToken === null || body === null) {
-        this.loginError = true;
         this.loginErrorMsg.push("Problem occur when try to login");
       } else {
         this.storageService.setItem(environment.accessTokenHeaderName, accessToken);
